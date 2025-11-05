@@ -7,16 +7,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Loader, Message } from 'semantic-ui-react';
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
 import boardsApi from '../../api/boards';
 
 import styles from './PublicBoard.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const PublicBoard = () => {
   const { token } = useParams();
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [t] = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  // Force Turkish language for this public page since it's accessed via Turkish domain
+  useEffect(() => {
+    i18n.changeLanguage('tr-TR');
+  }, [i18n]);
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -96,8 +104,7 @@ const PublicBoard = () => {
                                   label && (
                                     <span
                                       key={label.id}
-                                      className={styles.label}
-                                      style={{ backgroundColor: label.color }}
+                                      className={`${styles.label} ${globalStyles[`background${upperFirst(camelCase(label.color))}`]}`}
                                     >
                                       {label.name}
                                     </span>
