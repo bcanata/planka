@@ -44,5 +44,8 @@ export default function* boardsWatchers() {
     takeEvery(EntryActionTypes.BOARD_DELETE_HANDLE, ({ payload: { board } }) =>
       services.handleBoardDelete(board),
     ),
+    takeEvery(EntryActionTypes.BOARD_PUBLIC_SHARING_TOGGLE, ({ payload: { enabled } }) =>
+      services.togglePublicSharingInCurrentBoard(enabled),
+    ),
   ]);
 }

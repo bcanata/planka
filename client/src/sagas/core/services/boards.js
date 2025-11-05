@@ -245,6 +245,20 @@ export function* handleBoardDelete(board) {
   }
 }
 
+export function* togglePublicSharingInCurrentBoard(enabled) {
+  const { boardId } = yield select(selectors.selectPath);
+
+  let board;
+  try {
+    ({ item: board } = yield call(request, api.togglePublicSharing, boardId, enabled));
+  } catch (error) {
+    console.error('Failed to toggle public sharing:', error);
+    return;
+  }
+
+  yield put(actions.handleBoardUpdate(board));
+}
+
 export default {
   createBoard,
   createBoardInCurrentProject,
@@ -261,4 +275,5 @@ export default {
   searchInCurrentBoard,
   deleteBoard,
   handleBoardDelete,
+  togglePublicSharingInCurrentBoard,
 };

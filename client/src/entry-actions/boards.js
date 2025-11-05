@@ -93,6 +93,13 @@ const handleBoardDelete = (board) => ({
   },
 });
 
+const togglePublicSharingInCurrentBoard = (enabled) => ({
+  type: EntryActionTypes.BOARD_PUBLIC_SHARING_TOGGLE,
+  payload: {
+    enabled,
+  },
+});
+
 export default {
   createBoardInCurrentProject,
   handleBoardCreate,
@@ -106,4 +113,5 @@ export default {
   searchInCurrentBoard,
   deleteBoard,
   handleBoardDelete,
+  togglePublicSharingInCurrentBoard,
 };

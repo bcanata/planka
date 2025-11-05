@@ -11,7 +11,7 @@ import { Button, Form, Message } from 'semantic-ui-react';
 import { Popup } from '../../../../lib/custom-ui';
 
 import selectors from '../../../../selectors';
-import boardsApi from '../../../../api/boards';
+import entryActions from '../../../../entry-actions';
 
 import styles from './ActionsStep.module.scss';
 
@@ -27,17 +27,12 @@ const ShareStep = React.memo(({ onBack }) => {
     ? `${window.location.origin}/public/${board.publicShareToken}`
     : null;
 
-  const handleToggleSharing = useCallback(async () => {
+  const handleToggleSharing = useCallback(() => {
     setIsSubmitting(true);
-    try {
-      await boardsApi.togglePublicSharing(board.id, !board.publicShareToken);
-      // The board will be updated via socket event
-    } catch (error) {
-      console.error('Failed to toggle public sharing:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [board.id, board.publicShareToken]);
+    dispatch(entryActions.togglePublicSharingInCurrentBoard(!board.publicShareToken));
+    // Reset submitting state after a short delay
+    setTimeout(() => setIsSubmitting(false), 500);
+  }, [dispatch, board.publicShareToken]);
 
   const handleCopyLink = useCallback(() => {
     if (inputRef.current) {
