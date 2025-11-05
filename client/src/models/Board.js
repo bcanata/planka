@@ -32,6 +32,9 @@ export default class extends BaseModel {
     limitCardTypesToDefaultOne: attr(),
     alwaysDisplayCardCreator: attr(),
     expandTaskListsByDefault: attr(),
+    publicShareToken: attr({
+      getDefault: () => null,
+    }),
     context: attr(),
     view: attr(),
     search: attr(),

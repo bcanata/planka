@@ -32,10 +32,25 @@ const updateBoard = (id, data, headers) => socket.patch(`/boards/${id}`, data, h
 
 const deleteBoard = (id, headers) => socket.delete(`/boards/${id}`, undefined, headers);
 
+const togglePublicSharing = (id, enabled, headers) =>
+  socket.post(`/boards/${id}/public-share-token`, { enabled }, headers);
+
+const getPublicBoard = (token, headers) =>
+  http.get(`/public-boards/${token}`, undefined, headers).then((body) => ({
+    ...body,
+    included: {
+      ...body.included,
+      cards: body.included.cards.map(transformCard),
+      attachments: body.included.attachments.map(transformAttachment),
+    },
+  }));
+
 export default {
   createBoard,
   createBoardWithImport,
   getBoard,
   updateBoard,
   deleteBoard,
+  togglePublicSharing,
+  getPublicBoard,
 };

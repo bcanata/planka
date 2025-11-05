@@ -39,6 +39,8 @@ module.exports.policies = {
 
   'projects/create': ['is-authenticated', 'is-external', 'is-admin-or-project-owner'],
 
+  'public-boards/show': true,
+
   'bootstrap/show': true,
   'terms/show': true,
   'access-tokens/create': true,

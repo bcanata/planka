@@ -111,6 +111,12 @@ module.exports.routes = {
   'GET /api/boards/:id': 'boards/show',
   'PATCH /api/boards/:id': 'boards/update',
   'DELETE /api/boards/:id': 'boards/delete',
+  'POST /api/boards/:id/public-share-token': 'boards/toggle-public-sharing',
+
+  'GET /api/public-boards/:token': {
+    action: 'public-boards/show',
+    skipAssets: true,
+  },
 
   'POST /api/boards/:boardId/board-memberships': 'board-memberships/create',
   'PATCH /api/board-memberships/:id': 'board-memberships/update',

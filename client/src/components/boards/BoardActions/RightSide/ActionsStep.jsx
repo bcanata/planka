@@ -17,35 +17,41 @@ import { BoardContexts, BoardMembershipRoles } from '../../../../constants/Enums
 import { BoardContextIcons } from '../../../../constants/Icons';
 import ConfirmationStep from '../../../common/ConfirmationStep';
 import CustomFieldGroupsStep from '../../../custom-field-groups/CustomFieldGroupsStep';
+import ShareStep from './ShareStep';
 
 import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
   CUSTOM_FIELD_GROUPS: 'CUSTOM_FIELD_GROUPS',
   EMPTY_TRASH: 'EMPTY_TRASH',
+  SHARE: 'SHARE',
 };
 
 const ActionsStep = React.memo(({ onClose }) => {
   const board = useSelector(selectors.selectCurrentBoard);
 
-  const { withSubscribe, withCustomFieldGroups, withTrashEmptier } = useSelector((state) => {
-    const isManager = selectors.selectIsCurrentUserManagerForCurrentProject(state);
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
+  const { withSubscribe, withCustomFieldGroups, withTrashEmptier, withShare } = useSelector(
+    (state) => {
+      const isManager = selectors.selectIsCurrentUserManagerForCurrentProject(state);
+      const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
-    let isMember = false;
-    let isEditor = false;
+      let isMember = false;
+      let isEditor = false;
 
-    if (boardMembership) {
-      isMember = true;
-      isEditor = boardMembership.role === BoardMembershipRoles.EDITOR;
-    }
+      if (boardMembership) {
+        isMember = true;
+        isEditor = boardMembership.role === BoardMembershipRoles.EDITOR;
+      }
 
-    return {
-      withSubscribe: isMember, // TODO: rename?
-      withCustomFieldGroups: isEditor,
-      withTrashEmptier: board.context === BoardContexts.TRASH && (isManager || isEditor),
-    };
-  }, shallowEqual);
+      return {
+        withSubscribe: isMember, // TODO: rename?
+        withCustomFieldGroups: isEditor,
+        withTrashEmptier: board.context === BoardContexts.TRASH && (isManager || isEditor),
+        withShare: isManager && board.context === BoardContexts.BOARD,
+      };
+    },
+    shallowEqual,
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -87,6 +93,10 @@ const ActionsStep = React.memo(({ onClose }) => {
     openStep(StepTypes.EMPTY_TRASH);
   }, [openStep]);
 
+  const handleShareClick = useCallback(() => {
+    openStep(StepTypes.SHARE);
+  }, [openStep]);
+
   if (step) {
     switch (step.type) {
       case StepTypes.CUSTOM_FIELD_GROUPS:
@@ -101,6 +111,8 @@ const ActionsStep = React.memo(({ onClose }) => {
             onBack={handleBack}
           />
         );
+      case StepTypes.SHARE:
+        return <ShareStep onBack={handleBack} onClose={onClose} />;
       default:
     }
   }
@@ -121,6 +133,14 @@ const ActionsStep = React.memo(({ onClose }) => {
                 className={styles.menuItemIcon}
               />
               {t(board.isSubscribed ? 'action.unsubscribe' : 'action.subscribe', {
+                context: 'title',
+              })}
+            </Menu.Item>
+          )}
+          {withShare && (
+            <Menu.Item className={styles.menuItem} onClick={handleShareClick}>
+              <Icon name="share alternate" className={styles.menuItemIcon} />
+              {t('action.shareBoard', {
                 context: 'title',
               })}
             </Menu.Item>

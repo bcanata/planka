@@ -72,6 +72,11 @@
  *           default: false
  *           description: Whether to expand task lists by default
  *           example: false
+ *         publicShareToken:
+ *           type: string
+ *           nullable: true
+ *           description: Token for public board sharing
+ *           example: "a1b2c3d4e5f6g7h8"
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -141,6 +146,11 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false,
       columnName: 'expand_task_lists_by_default',
+    },
+    publicShareToken: {
+      type: 'string',
+      allowNull: true,
+      columnName: 'public_share_token',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

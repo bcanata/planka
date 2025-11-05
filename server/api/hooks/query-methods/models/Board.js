@@ -72,6 +72,8 @@ const getByProjectIds = (projectIds, { sort = ['position', 'id'] } = {}) =>
 
 const getOneById = (id) => Board.findOne(id);
 
+const getOneByPublicShareToken = (token) => Board.findOne({ publicShareToken: token });
+
 const updateOne = (criteria, values) => Board.updateOne(criteria).set({ ...values });
 
 // eslint-disable-next-line no-underscore-dangle
@@ -85,6 +87,7 @@ module.exports = {
   getByProjectId,
   getByProjectIds,
   getOneById,
+  getOneByPublicShareToken,
   updateOne,
   deleteOne,
   delete: delete_,
