@@ -39,6 +39,8 @@ module.exports.policies = {
 
   'projects/create': ['is-authenticated', 'is-external', 'is-admin-or-project-owner'],
 
+  'boards/toggle-public-sharing': ['is-authenticated', 'is-external'],
+
   'public-boards/show': true,
 
   'bootstrap/show': true,
