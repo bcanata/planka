@@ -12,7 +12,7 @@ import camelCase from 'lodash/camelCase';
 import boardsApi from '../../api/boards';
 
 import styles from './PublicBoard.module.scss';
-import globalStyles from '../../../styles.module.scss';
+import globalStyles from '../../styles.module.scss';
 
 const PublicBoard = () => {
   const { token } = useParams();
