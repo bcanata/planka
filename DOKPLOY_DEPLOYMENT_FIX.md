@@ -27,6 +27,42 @@ ports:
   - 1337  # ✅ Only expose internal port, Dokploy handles the rest
 ```
 
+## Database Authentication Fix
+
+The docker-compose.yml also had hardcoded database credentials that didn't match Dokploy environment variables:
+
+**Before (WRONG):**
+```yaml
+environment:
+  - DATABASE_URL=postgresql://postgres@postgres/planka
+postgres:
+  environment:
+    - POSTGRES_DB=planka
+    - POSTGRES_HOST_AUTH_METHOD=trust
+```
+
+**After (CORRECT):**
+```yaml
+environment:
+  - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB:-planka}
+postgres:
+  environment:
+    - POSTGRES_DB=${POSTGRES_DB:-planka}
+    - POSTGRES_USER=${POSTGRES_USER:-postgres}
+    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+```
+
+Now the database connection uses your Dokploy environment variables!
+
+## Required Dokploy Environment Variables
+
+Make sure these are set in your Dokploy application settings:
+- `POSTGRES_DB=planka`
+- `POSTGRES_USER=planka`
+- `POSTGRES_PASSWORD=your_secure_password`
+- `BASE_URL=https://your-domain.com`
+- `SECRET_KEY=your_secret_key`
+
 Now commit and push this change, then redeploy in Dokploy!
 
 ## Quick Fix (Via Dokploy Dashboard)
