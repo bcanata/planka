@@ -14,10 +14,10 @@ export default {
       or: 'Veya',
       pageNotFound_title: 'Sayfa bulunamadı',
       password: 'Şifre',
-      poweredByPlanka: 'PLANKA tarafından desteklenmektedir',
+      poweredByPlanka: 'PLANKA altyapısı kullanmaktadır',
       serverConnectionFailed: 'Sunucu bağlantı hatası',
       unknownError: 'Bilinmeyen hata, daha sonra tekrar deneyin',
-      useSingleSignOn: 'Tek oturum açma kullan',
+      useSingleSignOn: 'Google ile girişi kullan',
       usernameAlreadyInUse: 'Kullanıcı adı zaten kullanımda',
     },
 
@@ -25,7 +25,7 @@ export default {
       cancelAndClose: 'İptal et ve kapat',
       continue: 'Devam et',
       logIn: 'Giriş yap',
-      logInWithSso: 'SSO ile giriş yap',
+      logInWithSso: 'Google ile giriş yap',
     },
   },
 };
