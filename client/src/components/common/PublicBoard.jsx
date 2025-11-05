@@ -10,6 +10,7 @@ import { Loader, Message } from 'semantic-ui-react';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import boardsApi from '../../api/boards';
+import DueDateChip from '../../cards/DueDateChip/DueDateChip';
 
 import styles from './PublicBoard.module.scss';
 import globalStyles from '../../styles.module.scss';
@@ -113,6 +114,17 @@ const PublicBoard = () => {
                             </div>
                           )}
                           <div className={styles.cardName}>{card.name}</div>
+                          {card.dueDate && (
+                            <div className={styles.cardDueDate}>
+                              <DueDateChip
+                                value={new Date(card.dueDate)}
+                                size="small"
+                                isCompleted={card.isDueCompleted}
+                                withStatus={true}
+                                withStatusIcon={true}
+                              />
+                            </div>
+                          )}
                           {card.description && (
                             <div className={styles.cardDescription}>{card.description}</div>
                           )}
