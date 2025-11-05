@@ -15,6 +15,7 @@ import entryActions from '../../../../entry-actions';
 import { useSteps } from '../../../../hooks';
 import { BoardContexts, BoardMembershipRoles } from '../../../../constants/Enums';
 import { BoardContextIcons } from '../../../../constants/Icons';
+import { isUserAdminOrProjectOwner } from '../../../../utils/record-helpers';
 import ConfirmationStep from '../../../common/ConfirmationStep';
 import CustomFieldGroupsStep from '../../../custom-field-groups/CustomFieldGroupsStep';
 import ShareStep from './ShareStep';
@@ -33,6 +34,8 @@ const ActionsStep = React.memo(({ onClose }) => {
   const { withSubscribe, withCustomFieldGroups, withTrashEmptier, withShare } = useSelector(
     (state) => {
       const isManager = selectors.selectIsCurrentUserManagerForCurrentProject(state);
+      const currentUser = selectors.selectCurrentUser(state);
+      const isAdmin = currentUser && isUserAdminOrProjectOwner(currentUser);
       const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
       let isMember = false;
@@ -47,7 +50,7 @@ const ActionsStep = React.memo(({ onClose }) => {
         withSubscribe: isMember, // TODO: rename?
         withCustomFieldGroups: isEditor,
         withTrashEmptier: board.context === BoardContexts.TRASH && (isManager || isEditor),
-        withShare: isManager && board.context === BoardContexts.BOARD,
+        withShare: (isManager || isAdmin) && board.context === BoardContexts.BOARD,
       };
     },
     shallowEqual,
