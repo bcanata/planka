@@ -10,7 +10,7 @@ import { Loader, Message } from 'semantic-ui-react';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import boardsApi from '../../api/boards';
-import DueDateChip from '../../cards/DueDateChip/DueDateChip';
+import DueDateChip from '../../components/cards/DueDateChip';
 import { Icon } from 'semantic-ui-react';
 
 import styles from './PublicBoard.module.scss';
