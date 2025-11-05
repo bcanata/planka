@@ -254,6 +254,11 @@ export default {
       plankaUsesAppriseToSendNotificationsToOver100PopularServices:
         "PLANKA, 100'den fazla popüler servise bildirim göndermek için <1><0>Apprise</0></1> kullanır.",
       port: 'Port',
+      loadingBoard: 'Pano yükleniyor...',
+      publicBoardNotFoundOrAccessDenied: 'Pano bulunamadı veya erişim reddedildi',
+      readOnlyView: 'Salt Okunur Görünüm',
+      publicBoardFooterMessage:
+        'Bu, salt okunur genel bir görünümdür. Bu pano ile etkileşim kurmak için lütfen pano sahibiyle iletişime geçin.',
       preferences: 'Tercihler',
       pressPasteShortcutToAddAttachmentFromClipboard:
         'İpucu: Panodan bir ek eklemek için CTRL-V ye (Macte Cmd-V) basın.',

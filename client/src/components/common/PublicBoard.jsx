@@ -5,6 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Loader, Message } from 'semantic-ui-react';
 import boardsApi from '../../api/boards';
 
@@ -15,6 +16,7 @@ const PublicBoard = () => {
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [t] = useTranslation();
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -24,20 +26,20 @@ const PublicBoard = () => {
         setBoard(data);
         setError(null);
       } catch (err) {
-        setError('Board not found or access denied');
+        setError(t('common.publicBoardNotFoundOrAccessDenied'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchBoard();
-  }, [token]);
+  }, [token, t]);
 
   if (loading) {
     return (
       <div className={styles.wrapper}>
         <Loader active size="massive">
-          Loading board...
+          {t('common.loadingBoard')}
         </Loader>
       </div>
     );
@@ -48,7 +50,7 @@ const PublicBoard = () => {
       <div className={styles.wrapper}>
         <div className={styles.message}>
           <Message negative>
-            <Message.Header>Board Not Found</Message.Header>
+            <Message.Header>{t('common.boardNotFound', { context: 'title' })}</Message.Header>
             <p>{error}</p>
           </Message>
         </div>
@@ -64,12 +66,12 @@ const PublicBoard = () => {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h1>{board.item.name}</h1>
-        <div className={styles.badge}>Read-Only View</div>
+        <div className={styles.badge}>{t('common.readOnlyView')}</div>
       </div>
       <div className={styles.boardWrapper}>
         <div className={styles.lists}>
           {board.included.lists
-            .filter((list) => list.type === null)
+            .filter((list) => list.type === 'active')
             .map((list) => {
               const listCards = board.included.cards.filter((card) => card.listId === list.id);
 
@@ -117,10 +119,7 @@ const PublicBoard = () => {
         </div>
       </div>
       <div className={styles.footer}>
-        <p>
-          This is a read-only public view. To interact with this board, please contact the board
-          owner.
-        </p>
+        <p>{t('common.publicBoardFooterMessage')}</p>
       </div>
     </div>
   );

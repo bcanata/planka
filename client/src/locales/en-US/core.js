@@ -247,6 +247,11 @@ export default {
       plankaUsesAppriseToSendNotificationsToOver100PopularServices:
         'PLANKA uses <1><0>Apprise</0></1> to send notifications to over 100 popular services.',
       port: 'Port',
+      loadingBoard: 'Loading board...',
+      publicBoardNotFoundOrAccessDenied: 'Board not found or access denied',
+      readOnlyView: 'Read-Only View',
+      publicBoardFooterMessage:
+        'This is a read-only public view. To interact with this board, please contact the board owner.',
       preferences: 'Preferences',
       pressPasteShortcutToAddAttachmentFromClipboard:
         'Tip: press Ctrl-V (Cmd-V on Mac) to add an attachment from the clipboard.',
