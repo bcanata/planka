@@ -15,7 +15,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'About PLANKA',
+      aboutPlanka: 'About GOAT PANO',
       accessToken: 'Access token',
       account: 'Account',
       actions: 'Actions',
@@ -245,7 +245,7 @@ export default {
       passwordIsSet: 'Password is set',
       phone: 'Phone',
       plankaUsesAppriseToSendNotificationsToOver100PopularServices:
-        'PLANKA uses <1><0>Apprise</0></1> to send notifications to over 100 popular services.',
+        'GOAT PANO uses <1><0>Apprise</0></1> to send notifications to over 100 popular services.',
       port: 'Port',
       loadingBoard: 'Loading board...',
       publicBoardNotFoundOrAccessDenied: 'Board not found or access denied',

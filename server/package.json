@@ -1,5 +1,5 @@
 {
-  "name": "planka-server",
+  "name": "goat-pano-server",
   "private": true,
   "main": "app.js",
   "scripts": {

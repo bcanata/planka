@@ -11,6 +11,7 @@ import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import boardsApi from '../../api/boards';
 import DueDateChip from '../../cards/DueDateChip/DueDateChip';
+import { Icon } from 'semantic-ui-react';
 
 import styles from './PublicBoard.module.scss';
 import globalStyles from '../../styles.module.scss';
@@ -21,6 +22,31 @@ const PublicBoard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { t, i18n } = useTranslation();
+  const currentUrl = window.location.href;
+  const boardTitle = board?.item?.name || 'GOAT PANO';
+
+  const socialShareText = `"${boardTitle}" panosunu GOAT PANO ile görüntüleyin! 📋✨`;
+
+  const handleShareTwitter = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(socialShareText)}&url=${encodeURIComponent(currentUrl)}`, '_blank');
+  };
+
+  const handleShareFacebook = () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(socialShareText)}`, '_blank');
+  };
+
+  const handleShareLinkedIn = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}&summary=${encodeURIComponent(socialShareText)}`, '_blank');
+  };
+
+  const handleShareWhatsApp = () => {
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${socialShareText} ${currentUrl}`)}`, '_blank');
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(currentUrl);
+    // Could add a toast notification here
+  };
 
   // Force Turkish language for this public page since it's accessed via Turkish domain
   useEffect(() => {
@@ -74,8 +100,27 @@ const PublicBoard = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h1>{board.item.name}</h1>
-        <div className={styles.badge}>{t('common.readOnlyView')}</div>
+        <div className={styles.headerContent}>
+          <h1>{board.item.name}</h1>
+          <div className={styles.badge}>{t('common.readOnlyView')}</div>
+        </div>
+        <div className={styles.socialButtons}>
+          <button className={`${styles.socialButton} ${styles.twitter}`} onClick={handleShareTwitter} title="Twitter'da paylaş">
+            <Icon name="twitter" />
+          </button>
+          <button className={`${styles.socialButton} ${styles.facebook}`} onClick={handleShareFacebook} title="Facebook'ta paylaş">
+            <Icon name="facebook" />
+          </button>
+          <button className={`${styles.socialButton} ${styles.linkedin}`} onClick={handleShareLinkedIn} title="LinkedIn'de paylaş">
+            <Icon name="linkedin" />
+          </button>
+          <button className={`${styles.socialButton} ${styles.whatsapp}`} onClick={handleShareWhatsApp} title="WhatsApp'ta paylaş">
+            <Icon name="whatsapp" />
+          </button>
+          <button className={styles.socialButton} onClick={handleCopyLink} title="Bağlantıyı kopyala">
+            <Icon name="linkify" />
+          </button>
+        </div>
       </div>
       <div className={styles.boardWrapper}>
         <div className={styles.lists}>

@@ -13,11 +13,73 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 
   h1 {
     margin: 0;
     font-size: 24px;
     color: #333;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.socialButton {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #495057;
+
+  &:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+  }
+
+  &.twitter:hover {
+    background: #1da1f2;
+    color: white;
+    border-color: #1da1f2;
+  }
+
+  &.facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+  }
+
+  &.linkedin:hover {
+    background: #0077b5;
+    color: white;
+    border-color: #0077b5;
+  }
+
+  &.whatsapp:hover {
+    background: #25d366;
+    color: white;
+    border-color: #25d366;
+  }
+
+  .icon {
+    margin: 0;
   }
 }
 

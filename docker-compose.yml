@@ -1,5 +1,5 @@
 services:
-  planka:
+  goat-pano:
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,13 +16,13 @@ services:
     ports:
       - 1337  # Expose internal port only - Dokploy handles external routing
     environment:
-      # Set BASE_URL in Dokploy UI to your actual domain (e.g., https://planka.yourdomain.com)
+      # Set BASE_URL in Dokploy UI to your actual domain (e.g., https://goat-pano.yourdomain.com)
       - BASE_URL=${BASE_URL:-http://localhost:3000}
       # Database connection - uses env vars from Dokploy
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB:-planka}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB:-goat-pano}
 
       # Optionally store the database password in secrets:
-      # - DATABASE_URL=postgresql://postgres:$${DATABASE_PASSWORD}@postgres/planka
+      # - DATABASE_URL=postgresql://postgres:$${DATABASE_PASSWORD}@postgres/goat-pano
       # - DATABASE_PASSWORD__FILE=/run/secrets/database_password
       # And add the following to the service:
       # secrets:
@@ -106,11 +106,11 @@ services:
       - db-data:/var/lib/postgresql/data
     environment:
       # These will be overridden by Dokploy environment variables
-      - POSTGRES_DB=${POSTGRES_DB:-planka}
+      - POSTGRES_DB=${POSTGRES_DB:-goat-pano}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-planka}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-goat-pano}"]
       interval: 10s
       timeout: 5s
       retries: 5

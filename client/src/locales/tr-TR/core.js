@@ -20,7 +20,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'PLANKA Hakkında',
+      aboutPlanka: 'GOAT PANO Hakkında',
       accessToken: 'Erişim jetonu',
       account: 'Hesap',
       actions: 'Eylemler',
@@ -252,7 +252,7 @@ export default {
       passwordIsSet: 'Şifre ayarlandı',
       phone: 'telefon',
       plankaUsesAppriseToSendNotificationsToOver100PopularServices:
-        "PLANKA, 100'den fazla popüler servise bildirim göndermek için <1><0>Apprise</0></1> kullanır.",
+        "GOAT PANO, 100'den fazla popüler servise bildirim göndermek için <1><0>Apprise</0></1> kullanır.",
       port: 'Port',
       loadingBoard: 'Pano yükleniyor...',
       publicBoardNotFoundOrAccessDenied: 'Pano bulunamadı veya erişim reddedildi',
